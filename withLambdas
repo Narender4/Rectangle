@@ -1,0 +1,70 @@
+//All rectangle names whose length is greater than a given value
+fun task3lambda(rec:List<Triple <  String,Int,Int > > , givenValue:Int) : List<String> {
+    var list= mutableListOf<String>()
+    var list1 = mutableListOf<Int>()
+    for (i in rec) {
+        if (i.second > givenValue) {
+            list1.add(rec.indexOf(i))
+        }
+    }
+    list1.forEach {
+        list.add(rec[it].first)
+    }
+        return list
+}
+//All rectangle names whose height is greater than a given value
+fun task4lambda(rec:List<Triple <  String,Int,Int > > , givenValue:Int) : List<String> {
+    var list = mutableListOf<String>()
+    var list1 = mutableListOf<Int>()
+    for (i in rec) {
+        if (i.third > givenValue) {
+            list1.add(rec.indexOf(i))
+        }
+    }
+    list1.forEach{
+        list.add(rec[it].first)
+    }
+    return list
+}
+//Longest rectangle
+fun task6lambda(rec:List<Triple <  String,Int,Int > > ) : String{
+    var length=rec[0].second
+    var index:Int= 0
+    for (i in 1 until rec.size){
+        if(rec[i].second > length ){
+            length=rec[i].second
+            index = i
+        }
+    }
+    // println( length)
+    var result:() -> String = {
+       rec[index].first
+    }
+    return result()
+}
+//Tallest rectangle
+fun task7lambda(rec:List<Triple <  String,Int,Int > > ) : String{
+    var length=rec[0].third
+    var index:Int= 0
+    for (i in 1 until rec.size){
+        if(rec[i].third> length ){
+            length=rec[i].third
+            index = i
+        }
+    }
+    //println( length)
+   var result:() -> String = {
+       rec[index].first
+    }
+    return result()
+}
+fun main()
+{
+    val rectangles = listOf( Triple("R1",10,20),Triple("R2",30,22),
+        Triple("R3",18,12),Triple("R4",22,6),
+        Triple("R5",22,29))
+    println("Rectangle names whose length is greater than a given value ${task3lambda(rectangles,20).joinToString()}")
+    println("Rectangle names whose height is greater than a given value ${task4lambda(rectangles,20).joinToString()}")
+    println( "Longest rectangle is ${task6lambda(rectangles)}")
+    println( "Tallest rectangle is ${task7lambda(rectangles)}")
+}
