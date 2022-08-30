@@ -1,0 +1,136 @@
+//All rectangle names which are portrait followed by landscape
+fun task1(rec:List<Triple <  String,Int,Int > > ):List<String>
+{
+    var recList = listOf<String>()
+    var recList1 = mutableListOf<String>()
+    var recList2 = mutableListOf<String>()
+    var recList3 = mutableListOf<String>()
+    for (i in rec){
+        if (i.second < i.third){
+            recList1.add(i.first)
+        }
+        else if (i.second > i.third) {
+            recList2.add(i.first)
+        }
+        else
+            recList3.add(i.first)
+    }
+    recList=recList1+recList2+recList3
+    return recList
+}
+//All rectangle names whose area is greater than a given value
+fun task2(rec:List<Triple <  String,Int,Int > > , givenValue:Double ) : List<String> {
+    var map = mutableMapOf<String,Double>()
+    for (i in rec)
+    {
+     var area = i.second.toDouble() * i.third
+     map[i.first] = area
+    }
+    var list= mutableListOf<String>()
+    //println(map)
+    for (i in map){
+        if (i.value > givenValue)
+        {
+            list.add(i.key)
+        }
+    }
+    return  list
+}
+//All rectangle names whose length is greater than a given value
+fun task3(rec:List<Triple <  String,Int,Int > > , givenValue:Int) : List<String> {
+    var list= mutableListOf<String>()
+    for (i in rec)
+    {
+        if(i.second > givenValue)
+        {
+            list.add(i.first)
+        }
+    }
+    return  list
+}
+//all rectangle names whose height is greater than a given value
+fun task4(rec:List<Triple <  String,Int,Int > > , givenValue:Int) : List<String> {
+    var list= mutableListOf<String>()
+    for (i in rec)
+    {
+        if(i.third > givenValue)
+        {
+            list.add(i.first)
+        }
+    }
+    return  list
+}
+//Largest and smallest rectangle by area
+fun task5(rec:List<Triple <  String,Int,Int > >)
+{
+    var map = mutableMapOf<String,Double>()
+    for (i in rec)
+    {
+        var area = i.second.toDouble() * i.third
+        map[i.first] = area
+    }
+   // println(map)
+    var list1= mutableListOf<String>()
+    var list2= mutableListOf<Double>()
+
+    for ( i in map)
+    {
+        list1.add(i.key)
+        list2.add(i.value)
+    }
+    var min = list2[0]
+    var max=list2[0]
+    for (i in 1 until list1.size)
+    {
+        if (list2[i] < min)
+        {
+            min = list2[i]
+        }
+        if (list2[i] > max)
+        {
+            max = list2[i]
+        }
+    }
+    println("${list1[list2.indexOf(min)]} is smallest rectangle by area  ")
+    println("${list1[list2.indexOf(max)]} is largest rectangle by area ")
+}
+//Longest rectangle
+fun task6(rec:List<Triple <  String,Int,Int > > ) : String {
+    var length=rec[0].second
+    var index:Int= 0
+   for (i in 1 until rec.size){
+       if(rec[i].second > length ){
+           length=rec[i].second
+           index = i
+       }
+   }
+   // println( length)
+    return rec[index].first
+}
+//Tallest rectangle
+fun task7(rec:List<Triple <  String,Int,Int > > ) : String{
+    var length=rec[0].third
+    var index:Int= 0
+   for (i in 1 until rec.size){
+       if(rec[i].third> length ){
+           length=rec[i].third
+           index = i
+       }
+   }
+    //println( length)
+    return rec[index].first
+}
+fun main()
+{
+    val rectangles = listOf( Triple("R1",10,20),Triple("R2",30,22),
+            Triple("R3",18,12),Triple("R4",22,6),
+        Triple("R5",22,29))
+    //println(rectangles)
+    println("Rectangle names which are portrait followed by landscape ${task1(rectangles).joinToString()}")
+    println( "Rectangle names whose area is greater than a given value ${task2(rectangles,200.0).joinToString()}")
+    println("Rectangle names whose length is greater than a given value ${task3(rectangles,17).joinToString()}")
+    println("Rectangle names whose height is greater than a given value ${task4(rectangles,20).joinToString()}")
+    task5(rectangles)
+    println( "Longest rectangle is ${task6(rectangles)}")
+    println( "Tallest rectangle is ${task7(rectangles)}")
+}
